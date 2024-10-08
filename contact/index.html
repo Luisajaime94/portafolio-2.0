@@ -5,6 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Luisa Jaime: Personal site and portfolio</title>
     <link rel="stylesheet" href="../style.css"> <!-- Link to the CSS file -->
+    <style>
+        :root {
+            --color-accent: oklch(65% 50% 0); /* Define the accent color */
+        }
+
+        body { 
+            max-width: 100ch; /* limits body to 100 char */
+            margin: max(1em(100:-100ch)/2); /* centers content horizontally */
+            padding-inline: 1em;
+            accent-color: var(--color-accent); /* Apply the accent color */
+        }
+
+        nav {
+            display: flex;
+            margin-bottom: 1em; /* Space below the nav */
+            border-bottom: 1px solid oklch(80% 3% 200); /* Cool gray bottom border */
+        }
+
+        nav a { 
+            flex: 1;
+            text-align: center;
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Use the same color as parent */
+            padding: 0.5em; /* Add padding */
+        }
+
+        nav a:hover {
+            border-bottom: 0.4em solid var(--color-accent); /* Bottom border for hovered links */
+        }
+
+        form {
+            display: grid; /* Enable grid layout */
+            grid-template-columns: auto 1fr; /* Define columns */
+            gap: 1em; /* Space between grid items */
+            margin-top: 1em; /* Space above the form */
+        }
+
+        label {
+            display: block; /* Make labels block elements */
+            margin-block: 0.5em; /* Add spacing before and after labels */
+            grid-column: 1 / -1; /* Make labels span the full width */
+            font: inherit; /* Inherit font from body */
+        }
+
+        input, textarea, button {
+            display: block; /* Make inputs and button block elements */
+            width: 100%; /* Full width */
+            box-sizing: border-box; /* Include padding and border in width */
+            font: inherit; /* Inherit font from body */
+        }
+
+        textarea {
+            resize: vertical; /* Allow vertical resizing */
+        }
+
+        button {
+            grid-column: 1 / -1; /* Make the button span the full width */
+            background-color: var(--color-accent); /* Accent color for button */
+            color: white; /* Button text color */
+            border: none; /* No border */
+            padding: 0.5em; /* Padding for button */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        button:hover {
+            opacity: 0.9; /* Slightly change opacity on hover */
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -17,20 +85,18 @@
     </nav>
     
     <h1>Contact</h1>
-    <p>Lab Projects Setup Lab 1 Contacts  folder  </p>
+    <p>Lab Projects Setup Lab 1 Contacts folder</p>
     <form action="mailto:ljaimeladrondegue@ucsd.edu" method="POST" enctype="text/plain">
         <label for="email">Email:</label>
-        <input name="email" type="email">
+        <input name="email" type="email" id="email" required>
+
         <label for="subject">Subject:</label>
-        <input name="subject" type="text">
+        <input name="subject" type="text" id="subject" required>
+
         <label for="body">Message:</label>
-        <textarea name="body">
-            <button type="submit">Send</button>
+        <textarea name="body" id="body" rows="4" required></textarea>
 
-
-        
-        
-        
+        <button type="submit">Send</button>
     </form>
 </body>
 </html>
