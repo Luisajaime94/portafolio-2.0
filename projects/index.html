@@ -5,6 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Luisa Jaime: Personal site and portfolio</title>
     <link rel="stylesheet" href="../style.css"> <!-- Link to the CSS file -->
+    <style>
+        :root{
+            --color-accent: oklch(65% 50% 0);
+        }
+        body {
+            max-width: 100ch;
+            margin: max(1em(100:-100ch)/2);
+            padding-inline: 1em;
+            accent-color: var(--color-accent);
+            font-family: Arial, sans-serif; /* Ensure a readable font */
+        }
+
+        nav {
+            margin-bottom: 1em; /* Space below the navigation */
+        }
+
+        nav ul {
+            list-style-type: none; /* Remove bullets */
+            padding: 0; /* Remove padding */
+        }
+
+        nav ul li {
+            display: inline; /* Horizontal navigation */
+            margin-right: 1em; /* Space between items */
+        }
+        h1 {
+            font-size: 4em; /* Make the h1 significantly larger */
+            line-height: 1.1; /* Good default for h1 */
+        }
+
+        .projects {
+            display: grid; /* Make .projects a grid container */
+            grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); /* Flexible columns */
+            gap: 1em; /* Space between grid items */
+        }
+
+        .projects article {
+            display: grid; /* Grid container for articles */
+            grid-template-rows: subgrid; /* Align rows */
+            grid-row: span 3; /* Span over 3 rows */
+            padding: 1em; /* Padding inside each article */
+            border: 1px solid #ddd; /* Optional: border around articles */
+            border-radius: 8px; /* Optional: rounded corners */
+            background-color: #f9f9f9; /* Optional: background color */
+        }
+
+        .projects h2 {
+            margin: 0; /* Remove excessive spacing */
+        }
+        .projects img {
+            max-width: 100%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+    </style>
 </head>
 <body>
     <nav>
@@ -18,5 +73,71 @@
     
     <h1>Projects</h1>
     <p>Lab Projects Setup Lab 1 projects folder  </p>
+    <div class="Projects">
+        <article>
+            <h2> Lorem 1?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem2 ?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem 3?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem 4?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem5 ?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem6 ?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem 7?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem 8?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem 9?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem10 ?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem 11?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        <article>
+            <h2> Lorem 12?</h2>
+            <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
+            <p>Lorem?</p>
+        </article>
+        
+    </div>
+        
+   
+    
 </body>
 </html>
