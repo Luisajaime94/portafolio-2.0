@@ -5,18 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luisa Jaime's Resume</title>
     <link rel="stylesheet" href="style.css"> <!-- Link to an external CSS file for styling -->
+    <script src="global.js" type="module"></script>
+    <script src="nav.js" type="module"></script>
     <style>
-         :root{
-            --color-accent:oklch(65% 50% 0);
+        :root {
+            --color-accent: oklch(65% 50% 0);
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --link-color: #0066cc;
         }
-        body { 
-            max-width:100ch; /* limits body to 100 char*/
-            margin:max(1em(100:-100ch)/2); /*centeres content horizontaly */
-            padding-inline:1em;
-
+        body {
+            max-width: 100ch; /* limits body to 100 char */
+            margin: max(1em, calc((100% - 100ch) / 2)); /* centers content horizontally */
+            padding-inline: 1em;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
         }
         h1, h2, h3 {
-            color: #333;
+            color: var(--text-color);
         }
         h1 {
             font-size: 24px;
@@ -47,19 +54,43 @@
             display: inline;
             margin-right: 10px;
         }
+        /* Dark mode styles */
+        body.dark-mode {
+            --background-color: #333333;
+            --text-color: #ffffff;
+            --link-color: #1e90ff;
+        }
+        .dark-mode a {
+            color: var(--link-color);
+        }
+        .toggle-button {
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <!-- Navigation items can go here -->
+        </ul>
+    </nav>
     <header>
         <div class="contact-info">
             <p>4345 Mentone St • San Diego, CA 92107</p>
             <p>Email: <a href="mailto:luisajaime94@gmail.com">luisajaime94@gmail.com</a></p>
-            
             <p><a href="https://www.linkedin.com/in/luisa-jaime-garcia/" target="_blank">LinkedIn Profile</a></p>
         </div>
+        <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     </header>
 
-    <section class="Education">
+    <section class="education">
         <h2>Education</h2>
         <h3>University of California, San Diego</h3>
         <p>Masters in Data Science</p>
@@ -146,5 +177,11 @@
             <li>AI</li>
         </ul>
     </section>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
