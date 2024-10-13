@@ -4,27 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luisa Jaime: Personal site and portfolio</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" type="module"></script>
+    <script src="nav.js" type="module" defer></script> <!-- Added defer -->
     <style>
-        :root{
-            --color-accent:oklch(65% 50% 0);
+        :root {
+            --color-accent: oklch(65% 50% 0);
         }
         body { 
-            max-width:100ch; /* limits body to 100 char*/
-            margin:max(1em(100:-100ch)/2); /*centeres content horizontaly */
-            padding-inline:1em;
-
+            max-width: 100ch; /* limits body to 100 char */
+            margin: max(1em, calc((100% - 100ch) / 2)); /* centers content horizontally */
+            padding-inline: 1em;
         }
         ul, li {
-            display: contents;  /* This will remove the default list styling */
+            display: contents; /* This will remove the default list styling */
         }
-
         nav {
             display: flex;
             margin-bottom: 1em; /* Space below the nav */
             border-bottom: 1px solid #A0A0A0; /* Cool gray bottom border */
         }
-
         nav a { 
             flex: 1;
             text-align: center;
@@ -32,22 +31,29 @@
             color: inherit; /* Use the same color as parent */
             padding: 0.5em; /* Add padding */
         }
-        nav a:hover{
+        nav a:hover {
             border-bottom: 0.4em solid var(--color-accent);
+        }
+        /* Additional styles for the color scheme selector */
+        .color-scheme {
+            position: absolute;
+            top: 1rem; /* Adjust this value as needed */
+            right: 1rem; /* Adjust this value as needed */
+            font-size: 80%; /* Smaller font size */
         }
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="projects/index.html">Projects</a></li>
-            <li><a href="contact/index.html">Contact</a></li>
-            <li><a href="CV/index.html">Resume</a></li>
-            <li><a href="https://github.com/Luisajaime94" target="_blank">GitHub Profile</a></li>
-        </ul>
-    </nav>
-    
+    <!-- Color scheme switcher -->
+    <div class="color-scheme">
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select">
+            <option value="light dark">Automatic</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+    </div>
+
     <h1>Luisa Jaime</h1>
     <p>Hi, my name is Luisa Jaime. I was born and raised in Guadalajara, Mexico.
     I moved to the US in 2019 for work. Even though San Diego is such a pretty city,
@@ -55,5 +61,7 @@
     and with that, be able to either get a remote job or hybrid position so I can visit my mom more often.</p>
     
     <img src="images/IMG_3637.JPEG" alt="A photo of Luisa in CDMX" style="width: 300px; height: auto;">
+
+    <script src="script.js" type="module"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
