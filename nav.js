@@ -1,5 +1,5 @@
 let pages = [
-    { url: '', title: 'Home' },
+    { url: 'index.html', title: 'Home' }, // Adjust to direct link to index
     { url: 'projects/index.html', title: 'Projects' },
     { url: 'contact/index.html', title: 'Contact' },
     { url: 'CV/index.html', title: 'Resume' },
