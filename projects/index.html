@@ -5,16 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Luisa Jaime: Personal site and portfolio</title>
     <link rel="stylesheet" href="../style.css"> <!-- Link to the CSS file -->
+    <script src="global.js" type="module"></script>
+    <script src="nav.js" type="module"></script>
     <style>
-        :root{
+        :root {
             --color-accent: oklch(65% 50% 0);
+            --background-color: #f9f9f9; /* Light mode background */
+            --text-color: #333; /* Light mode text color */
+            --border-color: #ddd; /* Light mode border color */
         }
+
         body {
             max-width: 100ch;
-            margin: max(1em(100:-100ch)/2);
+            margin: max(1em, calc((100% - 100ch) / 2));
             padding-inline: 1em;
             accent-color: var(--color-accent);
             font-family: Arial, sans-serif; /* Ensure a readable font */
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
         nav {
@@ -30,6 +38,7 @@
             display: inline; /* Horizontal navigation */
             margin-right: 1em; /* Space between items */
         }
+
         h1 {
             font-size: 4em; /* Make the h1 significantly larger */
             line-height: 1.1; /* Good default for h1 */
@@ -46,40 +55,57 @@
             grid-template-rows: subgrid; /* Align rows */
             grid-row: span 3; /* Span over 3 rows */
             padding: 1em; /* Padding inside each article */
-            border: 1px solid #ddd; /* Optional: border around articles */
+            border: 1px solid var(--border-color); /* Optional: border around articles */
             border-radius: 8px; /* Optional: rounded corners */
-            background-color: #f9f9f9; /* Optional: background color */
+            background-color: #fff; /* Optional: background color */
         }
 
         .projects h2 {
             margin: 0; /* Remove excessive spacing */
         }
+
         .projects img {
             max-width: 100%; /* Responsive image */
             height: auto; /* Maintain aspect ratio */
         }
 
+        /* Dark mode styles */
+        body.dark {
+            --background-color: #121212; /* Dark mode background */
+            --text-color: #e0e0e0; /* Dark mode text color */
+            --border-color: #444; /* Dark mode border color */
+        }
+
+        .projects article.dark {
+            background-color: #1e1e1e; /* Dark mode article background */
+        }
     </style>
 </head>
 <body>
+    <!-- Color scheme switcher -->
+    <div class="color-scheme">
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select">
+            <option value="auto">Automatic</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+    </div>
+
     <nav>
         <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="index.html">Projects</a></li>
-            <li><a href="../contact/index.html">Contact</a></li>
-            <li><a href="https://github.com/Luisajaime94" target="_blank">GitHub Profile</a></li>
+            <!-- Navigation links will be dynamically added here -->
         </ul>
     </nav>
     
     <h1>Projects</h1>
-    <p>Lab Projects Setup Lab 1 projects folder  </p>
-    <div class="Projects">
+    <p>Lab Projects Setup Lab 1 projects folder</p>
+    <div class="projects">
         <article>
-            <h2> Lorem 1?</h2>
+            <h2>Lorem 1?</h2>
             <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
             <p>Lorem?</p>
         </article>
-        <article>
             <h2> Lorem2 ?</h2>
             <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="X">
             <p>Lorem?</p>
@@ -135,9 +161,39 @@
             <p>Lorem?</p>
         </article>
         
-    </div>
-        
-   
+        <script>
+            const themeSelect = document.getElementById('theme-select');
+            const body = document.body;
+            const articles = document.querySelectorAll('.projects article');
     
-</body>
-</html>
+            themeSelect.addEventListener('change', (event) => {
+                const selectedTheme = event.target.value;
+    
+                if (selectedTheme === 'dark') {
+                    body.classList.add('dark');
+                    articles.forEach(article => article.classList.add('dark'));
+                } else if (selectedTheme === 'light') {
+                    body.classList.remove('dark');
+                    articles.forEach(article => article.classList.remove('dark'));
+                } else {
+                    // Automatic theme based on user's preference
+                    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                    if (darkModeMediaQuery.matches) {
+                        body.classList.add('dark');
+                        articles.forEach(article => article.classList.add('dark'));
+                    } else {
+                        body.classList.remove('dark');
+                        articles.forEach(article => article.classList.remove('dark'));
+                    }
+                }
+            });
+    
+            // Set initial theme based on user's preference
+            const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            if (darkModeMediaQuery.matches) {
+                body.classList.add('dark');
+                articles.forEach(article => article.classList.add('dark'));
+            }
+        </script>
+    </body>
+    </html>
