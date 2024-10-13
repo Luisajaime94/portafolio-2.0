@@ -162,38 +162,51 @@
         </article>
         
         <script>
-            const themeSelect = document.getElementById('theme-select');
-            const body = document.body;
-            const articles = document.querySelectorAll('.projects article');
+            // Your JavaScript code here to generate the navigation
+            const pages = [
+                { url: '../index.html', title: 'Home' },
+                { url: '../projects/index.html', title: 'Projects' },
+                { url: '../contact/index.html', title: 'Contact' },
+                { url: '../CV/index.html', title: 'Resume' },
+                { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
+            ];
     
-            themeSelect.addEventListener('change', (event) => {
-                const selectedTheme = event.target.value;
+            // Create the navigation element
+            const nav = document.querySelector('nav ul');
     
-                if (selectedTheme === 'dark') {
-                    body.classList.add('dark');
-                    articles.forEach(article => article.classList.add('dark'));
-                } else if (selectedTheme === 'light') {
-                    body.classList.remove('dark');
-                    articles.forEach(article => article.classList.remove('dark'));
-                } else {
-                    // Automatic theme based on user's preference
-                    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-                    if (darkModeMediaQuery.matches) {
-                        body.classList.add('dark');
-                        articles.forEach(article => article.classList.add('dark'));
-                    } else {
-                        body.classList.remove('dark');
-                        articles.forEach(article => article.classList.remove('dark'));
-                    }
+            // Create links for the navigation
+            for (let p of pages) {
+                const a = document.createElement('a');
+                a.href = p.url;
+                a.textContent = p.title;
+    
+                // Open external links in a new tab
+                if (!p.url.startsWith('.')) {
+                    a.target = "_blank";
                 }
+    
+                const li = document.createElement('li');
+                li.appendChild(a);
+                nav.appendChild(li);
+            }
+    
+            // Color scheme switcher functionality
+            const select = document.getElementById('theme-select');
+            select.addEventListener('change', function (event) {
+                const colorScheme = event.target.value;
+                document.documentElement.setAttribute('data-theme', colorScheme);
+                localStorage.setItem('colorScheme', colorScheme);
             });
     
-            // Set initial theme based on user's preference
-            const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            if (darkModeMediaQuery.matches) {
-                body.classList.add('dark');
-                articles.forEach(article => article.classList.add('dark'));
+            // Load saved color scheme
+            const savedScheme = localStorage.getItem('colorScheme');
+            if (savedScheme) {
+                document.documentElement.setAttribute('data-theme', savedScheme);
+                select.value = savedScheme;
             }
+            function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
         </script>
     </body>
     </html>
