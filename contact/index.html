@@ -3,26 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Luisa Jaime: Personal site and portfolio</title>
-    <link rel="stylesheet" href="../style.css"> <!-- Link to the CSS file -->
+    <title>Luisa Jaime: Personal Site and Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" type="module"></script>
+    <script src="nav.js" type="module" defer></script>
     <style>
         :root {
-            --color-accent: oklch(65% 50% 0); /* Define the accent color */
+            --color-accent: oklch(65% 50% 0);
+            --background-color: white;
+            --text-color: black;
+            --border-color: #A0A0A0;
         }
-
+        
         body { 
             max-width: 100ch; /* limits body to 100 char */
-            margin: max(1em(100:-100ch)/2); /* centers content horizontally */
+            margin: max(1em, calc((100% - 100ch) / 2)); /* centers content horizontally */
             padding-inline: 1em;
-            accent-color: var(--color-accent); /* Apply the accent color */
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            --background-color: #121212;
+            --text-color: white;
+            --border-color: #444;
         }
 
+        ul, li {
+            display: contents; /* This will remove the default list styling */
+        }
+        
         nav {
             display: flex;
             margin-bottom: 1em; /* Space below the nav */
-            border-bottom: 1px solid oklch(80% 3% 200); /* Cool gray bottom border */
+            border-bottom: 1px solid var(--border-color); /* Cool gray bottom border */
         }
-
+        
         nav a { 
             flex: 1;
             text-align: center;
@@ -30,73 +48,116 @@
             color: inherit; /* Use the same color as parent */
             padding: 0.5em; /* Add padding */
         }
-
+        
         nav a:hover {
-            border-bottom: 0.4em solid var(--color-accent); /* Bottom border for hovered links */
+            border-bottom: 0.4em solid var(--color-accent);
         }
 
-        form {
-            display: grid; /* Enable grid layout */
-            grid-template-columns: auto 1fr; /* Define columns */
-            gap: 1em; /* Space between grid items */
-            margin-top: 1em; /* Space above the form */
+        /* Contact Form Styles */
+        #contact-form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1em;
         }
-
+        
         label {
-            display: block; /* Make labels block elements */
-            margin-block: 0.5em; /* Add spacing before and after labels */
-            grid-column: 1 / -1; /* Make labels span the full width */
-            font: inherit; /* Inherit font from body */
+            margin-bottom: 0.5em;
         }
-
-        input, textarea, button {
-            display: block; /* Make inputs and button block elements */
-            width: 100%; /* Full width */
-            box-sizing: border-box; /* Include padding and border in width */
-            font: inherit; /* Inherit font from body */
+        
+        input, textarea {
+            padding: 0.5em;
+            margin-bottom: 1em;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            width: 100%; /* Make input and textarea full width */
+            resize: vertical; /* Allow vertical resizing for textarea */
         }
-
-        textarea {
-            resize: vertical; /* Allow vertical resizing */
-        }
-
+        
         button {
-            grid-column: 1 / -1; /* Make the button span the full width */
-            background-color: var(--color-accent); /* Accent color for button */
-            color: white; /* Button text color */
-            border: none; /* No border */
-            padding: 0.5em; /* Padding for button */
-            cursor: pointer; /* Pointer cursor on hover */
+            padding: 0.5em;
+            background-color: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #4cae4c; /* Darker green on hover */
         }
 
-        button:hover {
-            opacity: 0.9; /* Slightly change opacity on hover */
+        /* Dark Mode Button */
+        .theme-toggle {
+            margin: 1em 0;
+            padding: 0.5em;
+            cursor: pointer;
+            background-color: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .theme-toggle:hover {
+            background-color: #4cae4c; /* Darker green on hover */
         }
     </style>
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="index.html">Projects</a></li>
-            <li><a href="../contact/index.html">Contact</a></li>
-            <li><a href="https://github.com/Luisajaime94" target="_blank">GitHub Profile</a></li>
-        </ul>
-    </nav>
-    
-    <h1>Contact</h1>
-    <p>Lab Projects Setup Lab 1 Contacts folder</p>
-    <form action="mailto:ljaimeladrondegue@ucsd.edu" method="POST" enctype="text/plain">
-        <label for="email">Email:</label>
-        <input name="email" type="email" id="email" required>
+<body class="home">
+    <header>
+        <h1>Luisa Jaime</h1>
+        <button class="theme-toggle" id="theme-toggle">Toggle Dark Mode</button>
+    </header>
 
-        <label for="subject">Subject:</label>
-        <input name="subject" type="text" id="subject" required>
+    <nav id="navbar"></nav>
 
-        <label for="body">Message:</label>
-        <textarea name="body" id="body" rows="4" required></textarea>
+    <section id="projects">
+        <h2>Projects</h2>
+        <p>Here are some of my projects...</p>
+    </section>
 
-        <button type="submit">Send</button>
-    </form>
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>You can reach me at: <a href="mailto:luisajaime94@gmail.com">luisajaime94@gmail.com</a></p>
+        
+        <form id="contact-form" action="mailto:luisajaime94@gmail.com">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Send Email</button>
+        </form>
+    </section>
+
+    <script>
+        const form = document.getElementById('contact-form');
+
+        form?.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const data = new FormData(form);
+            const params = [];
+
+            for (let [name, value] of data) {
+                // Properly encode the value
+                params.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+            }
+
+            // Construct the URL
+            const url = `${form.action}?${params.join('&')}`;
+
+            // Open the email client
+            location.href = url;
+        });
+
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
 </body>
 </html>
+
