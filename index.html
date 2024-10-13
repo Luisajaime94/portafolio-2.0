@@ -6,24 +6,41 @@
     <title>Luisa Jaime: Personal site and portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="global.js" type="module"></script>
-    <script src="nav.js" type="module" defer></script> <!-- Added defer -->
+    <script src="nav.js" type="module" defer></script>
     <style>
         :root {
             --color-accent: oklch(65% 50% 0);
+            --background-color: white;
+            --text-color: black;
+            --border-color: #A0A0A0;
         }
-        body { 
+
+        body {
             max-width: 100ch; /* limits body to 100 char */
             margin: max(1em, calc((100% - 100ch) / 2)); /* centers content horizontally */
             padding-inline: 1em;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
         }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            --background-color: #121212;
+            --text-color: white;
+            --border-color: #444;
+        }
+
         ul, li {
             display: contents; /* This will remove the default list styling */
         }
+
         nav {
             display: flex;
             margin-bottom: 1em; /* Space below the nav */
-            border-bottom: 1px solid #A0A0A0; /* Cool gray bottom border */
+            border-bottom: 1px solid var(--border-color); /* Cool gray bottom border */
         }
+
         nav a { 
             flex: 1;
             text-align: center;
@@ -31,9 +48,11 @@
             color: inherit; /* Use the same color as parent */
             padding: 0.5em; /* Add padding */
         }
+
         nav a:hover {
             border-bottom: 0.4em solid var(--color-accent);
         }
+
         /* Additional styles for the color scheme selector */
         .color-scheme {
             position: absolute;
@@ -46,12 +65,7 @@
 <body>
     <!-- Color scheme switcher -->
     <div class="color-scheme">
-        <label for="theme-select">Theme:</label>
-        <select id="theme-select">
-            <option value="light dark">Automatic</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-        </select>
+        <button class="theme-toggle" id="theme-toggle">Toggle Dark Mode</button>
     </div>
 
     <h1>Luisa Jaime</h1>
@@ -61,6 +75,27 @@
     and with that, be able to either get a remote job or hybrid position so I can visit my mom more often.</p>
     
     <img src="images/IMG_3637.JPEG" alt="A photo of Luisa in CDMX" style="width: 300px; height: auto;">
+
+    <script>
+        // Toggle dark mode functionality
+        const toggleButton = document.getElementById('theme-toggle');
+        
+        toggleButton.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            // Save the user's preference in local storage
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved color scheme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
 
     <script src="script.js" type="module"></script> <!-- Link to your JavaScript file -->
 </body>
