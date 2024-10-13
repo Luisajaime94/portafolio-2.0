@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luisa Jaime's Resume</title>
     <link rel="stylesheet" href="style.css"> <!-- Link to an external CSS file for styling -->
-    <script src="global.js" type="module"></script>
-    <script src="nav.js" type="module"></script>
+    <script src="script.js" type="module" defer></script>
     <style>
         :root {
             --color-accent: oklch(65% 50% 0);
@@ -72,6 +71,18 @@
             border: none;
             border-radius: 5px;
             font-size: 16px;
+        }
+        a {
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: var(--link-color);
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 20px; }
+            h2 { font-size: 18px; }
+            p, li { font-size: 14px; }
         }
     </style>
 </head>
@@ -179,52 +190,55 @@
     </section>
 
     <script>
-        // Your JavaScript code here to generate the navigation
-        const pages = [
-            { url: '../index.html', title: 'Home' },
-            { url: '../projects/index.html', title: 'Projects' },
-            { url: '../contact/index.html', title: 'Contact' },
-            { url: '../CV/index.html', title: 'Resume' },
+        // Prints message ITS ALIVE
+        console.log("IT'S ALIVE");
+
+        // Utility function that selects DOM based on CSS selector.
+        function $$(selector, context = document) {
+            return Array.from(context.querySelectorAll(selector));
+        }
+
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Step 2: Automatic current page link
+        let pages = [
+            { url: 'index.html', title: 'Home' },
+            { url: 'projects/index.html', title: 'Projects' },
+            { url: 'contact/index.html', title: 'Contact' },
+            { url: 'CV/index.html', title: 'Resume' },
             { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
         ];
 
         // Create the navigation element
-        const nav = document.querySelector('nav ul');
+        let nav = document.querySelector('nav');
+        let ul = document.createElement('ul');
+        nav.appendChild(ul);
 
         // Create links for the navigation
         for (let p of pages) {
-            const a = document.createElement('a');
-            a.href = p.url;
-            a.textContent = p.title;
+            let url = p.url;
+            let title = p.title;
+
+            // Create the link element
+            let a = document.createElement('a');
+            a.href = url;
+            a.textContent = title;
+
+            // Highlight the current page
+            a.classList.toggle('current', a.href === location.href);
 
             // Open external links in a new tab
-            if (!p.url.startsWith('.')) {
-                a.target = "_blank";
+            if (url.startsWith('http')) {
+                a.target = '_blank';
             }
 
-            const li = document.createElement('li');
+            let li = document.createElement('li');
             li.appendChild(a);
-            nav.appendChild(li);
+            ul.appendChild(li);
         }
-
-        // Color scheme switcher functionality
-        const select = document.getElementById('theme-select');
-        select.addEventListener('change', function (event) {
-            const colorScheme = event.target.value;
-            document.documentElement.setAttribute('data-theme', colorScheme);
-            localStorage.setItem('colorScheme', colorScheme);
-        });
-
-        // Load saved color scheme
-        const savedScheme = localStorage.getItem('colorScheme');
-        if (savedScheme) {
-            document.documentElement.setAttribute('data-theme', savedScheme);
-            select.value = savedScheme;
-        }
-        function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-    }
     </script>
-    
 </body>
 </html>

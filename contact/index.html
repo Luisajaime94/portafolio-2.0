@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luisa Jaime: Personal Site and Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <script src="global.js" type="module"></script>
-    <script src="nav.js" type="module" defer></script>
+    <script src="script.js" type="module" defer></script>
     <style>
         :root {
             --color-accent: oklch(65% 50% 0);
@@ -139,46 +138,68 @@
     </section>
 
     <script>
-        // Your JavaScript code here to generate the navigation
-        const pages = [
-            { url: '../index.html', title: 'Home' },
-            { url: '../projects/index.html', title: 'Projects' },
-            { url: '../contact/index.html', title: 'Contact' },
-            { url: '../CV/index.html', title: 'Resume' },
+        // Prints message ITS ALIVE
+        console.log("IT'S ALIVE");
+
+        // Utility function that selects DOM based on CSS selector.
+        function $$(selector, context = document) {
+            return Array.from(context.querySelectorAll(selector));
+        }
+
+        // Step 2: Automatic current page link
+        let pages = [
+            { url: 'index.html', title: 'Home' },
+            { url: 'projects/index.html', title: 'Projects' },
+            { url: 'contact/index.html', title: 'Contact' },
+            { url: 'CV/index.html', title: 'Resume' },
             { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
         ];
 
         // Create the navigation element
-        const nav = document.querySelector('nav ul');
+        let nav = document.querySelector('nav');
+        let ul = document.createElement('ul');
+        nav.appendChild(ul);
 
         // Create links for the navigation
         for (let p of pages) {
-            const a = document.createElement('a');
-            a.href = p.url;
-            a.textContent = p.title;
+            let url = p.url;
+            let title = p.title;
+
+            // Create the link element
+            let a = document.createElement('a');
+            a.href = url;
+            a.textContent = title;
+
+            // Highlight the current page
+            a.classList.toggle('current', a.href === location.href);
 
             // Open external links in a new tab
-            if (!p.url.startsWith('.')) {
+            if (a.host !== location.host) {
                 a.target = "_blank";
             }
 
-            const li = document.createElement('li');
-            li.appendChild(a);
-            nav.appendChild(li);
+            // Append the link to the <ul>
+            ul.appendChild(a);
         }
 
-        // Color scheme switcher functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', toggleDarkMode);
+        // Add theme toggle functionality
+        const toggleButton = document.getElementById('theme-toggle');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                // Save the user's preference in local storage
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
 
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-
-        // Load saved color scheme
-        const savedScheme = localStorage.getItem('colorScheme');
-        if (savedScheme) {
-            document.body.classList.toggle('dark-mode', savedScheme === 'dark');
+            // Load saved color scheme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
         }
     </script>
 </body>
