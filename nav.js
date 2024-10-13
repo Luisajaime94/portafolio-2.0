@@ -1,8 +1,8 @@
 let pages = [
     { url: '', title: 'Home' },
-    { url: 'projects/', title: 'Projects' },
-    { url: 'contact/', title: 'Contact' },
-    { url: 'CV/', title: 'Resume' },
+    { url: 'projects/index.html', title: 'Projects' },
+    { url: 'contact/index.html', title: 'Contact' },
+    { url: 'CV/index.html', title: 'Resume' },
     { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
 ];
 
