@@ -33,8 +33,8 @@ for (let p of pages) {
     a.href = url;
     a.textContent = title;
 
-    // Highlight the current page
-    a.classList.toggle('current', a.href === location.href);
+    // Highlight the current page based on pathname
+    a.classList.toggle('current', a.pathname === location.pathname);
 
     // Open external links in a new tab
     if (a.host !== location.host) {
