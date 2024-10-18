@@ -87,11 +87,6 @@
     </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <!-- Navigation items can go here -->
-        </ul>
-    </nav>
     <header>
         <div class="contact-info">
             <p>4345 Mentone St • San Diego, CA 92107</p>
@@ -190,20 +185,17 @@
     </section>
 
     <script>
-        // Prints message ITS ALIVE
+        // Prints message IT'S ALIVE
         console.log("IT'S ALIVE");
 
         // Utility function that selects DOM based on CSS selector.
+        // Simplifies selecting the elements by making querySelectorAll more accessible.
+        // Converts NodeList into an array.
         function $$(selector, context = document) {
             return Array.from(context.querySelectorAll(selector));
         }
 
-        // Function to toggle dark mode
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-
-        // Step 2: Automatic current page link
+        // Step 1: Create an array of pages for navigation
         let pages = [
             { url: 'index.html', title: 'Home' },
             { url: 'projects/index.html', title: 'Projects' },
@@ -213,9 +205,10 @@
         ];
 
         // Create the navigation element
-        let nav = document.querySelector('nav');
+        let nav = document.createElement('nav');
         let ul = document.createElement('ul');
         nav.appendChild(ul);
+        document.body.prepend(nav);
 
         // Create links for the navigation
         for (let p of pages) {
@@ -229,6 +222,8 @@
 
             // Highlight the current page
             a.classList.toggle('current', a.href === location.href);
+
+
 
             // Open external links in a new tab
             if (url.startsWith('http')) {

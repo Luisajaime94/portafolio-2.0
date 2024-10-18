@@ -78,15 +78,12 @@
     <img src="images/IMG_3637.JPEG" alt="A photo of Luisa in CDMX" style="width: 300px; height: auto;">
 
     <script>
-        // Prints message ITS ALIVE
         console.log("IT'S ALIVE");
 
-        // Utility function that selects DOM based on CSS selector.
         function $$(selector, context = document) {
             return Array.from(context.querySelectorAll(selector));
         }
 
-        // Step 2: Automatic current page link
         let pages = [
             { url: 'index.html', title: 'Home' },
             { url: 'projects/index.html', title: 'Projects' },
@@ -95,39 +92,28 @@
             { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
         ];
 
-        // Create the navigation element
         let nav = document.querySelector('nav');
         let ul = document.createElement('ul');
         nav.appendChild(ul);
 
-        // Create links for the navigation
         for (let p of pages) {
-            let url = p.url;
-            let title = p.title;
-
-            // Create the link element
             let a = document.createElement('a');
-            a.href = url;
-            a.textContent = title;
-
-            // Highlight the current page
+            a.href = p.url;
+            a.textContent = p.title;
             a.classList.toggle('current', a.href === location.href);
 
-            // Open external links in a new tab
             if (a.host !== location.host) {
                 a.target = "_blank";
             }
 
-            // Append the link to the <ul>
             ul.appendChild(a);
         }
 
-        // Step 4.2: Adding color scheme switcher functionality
         const select = document.getElementById('theme-select');
         select.addEventListener('input', function (event) {
             const colorScheme = event.target.value;
             document.documentElement.style.setProperty('color-scheme', colorScheme);
-            localStorage.colorScheme = colorScheme; // Save preference
+            localStorage.colorScheme = colorScheme;
             if (colorScheme === 'dark') {
                 document.body.classList.add('dark-mode');
             } else {
@@ -135,78 +121,14 @@
             }
         });
 
-        // Load the user's preference on page load
         if ('colorScheme' in localStorage) {
             const savedScheme = localStorage.colorScheme;
             document.documentElement.style.setProperty('color-scheme', savedScheme);
-            select.value = savedScheme; // Set select to saved value
+            select.value = savedScheme;
             if (savedScheme === 'dark') {
                 document.body.classList.add('dark-mode');
             }
         }
-
-        // Add theme toggle functionality
-        const toggleButton = document.getElementById('switch mode');
-        if (toggleButton) {
-            toggleButton.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                // Save the user's preference in local storage
-                if (document.body.classList.contains('dark-mode')) {
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    localStorage.setItem('theme', 'light');
-                }
-            });
-
-            // Load saved color scheme
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        }
     </script>
-</body>
-</html>
-
-
-        ul, li {
-            display: contents; 
-        }
-
-        nav {
-            display: flex;
-            margin-bottom: 1em; 
-            border-bottom: 1px solid var(--border-color); 
-        }
-
-        nav a { 
-            flex: 1;
-            text-align: center;
-            text-decoration: none; 
-            color: inherit; 
-            padding: 0.5em; 
-        }
-
-        nav a:hover {
-            border-bottom: 0.4em solid var(--color-accent);
-        }
-
-        .color-scheme {
-            position: absolute;
-            top: 1rem; 
-            right: 1rem; 
-            font-size: 80%; 
-        }
-    </style>
-</head>
-<body>
-    <h1>Luisa Jaime</h1>
-    <p>My name is Luisa Jaime, and I was born and raised in Guadalajara, Mexico. 
-        I decided to pursue a master's in data science because I wanted to transition into a field that moves away from traditional lab work while still being closely related to science. I believe that data science offers a unique opportunity to integrate my undergraduate knowledge with cutting-edge analytical techniques, 
-        allowing me to contribute to impactful scientific discoveries in new and innovative ways.
-    </p>
-    <img src="images/IMG_3637.JPEG" alt="A photo of Luisa in CDMX" style="width: 300px; height: auto;">
-
-    <script src="script.js" type="module"></script>
 </body>
 </html>

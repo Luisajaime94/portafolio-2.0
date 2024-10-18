@@ -15,15 +15,14 @@
         }
         
         body { 
-            max-width: 100ch; /* limits body to 100 char */
-            margin: max(1em, calc((100% - 100ch) / 2)); /* centers content horizontally */
+            max-width: 100ch; 
+            margin: max(1em, calc((100% - 100ch) / 2)); 
             padding-inline: 1em;
             background-color: var(--background-color);
             color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+            transition: background-color 0.3s, color 0.3s;
         }
         
-        /* Dark mode styles */
         body.dark-mode {
             --background-color: #121212;
             --text-color: white;
@@ -31,40 +30,41 @@
         }
 
         ul, li {
-            display: contents; /* This will remove the default list styling */
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
         }
         
         nav {
             display: flex;
-            margin-bottom: 1em; /* Space below the nav */
-            border-bottom: 1px solid var(--border-color); /* Cool gray bottom border */
-            background-color: var(--background-color); /* Match background */
-            transition: background-color 0.3s; /* Smooth transition for nav background */
+            margin-bottom: 1em; 
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--background-color); 
+            transition: background-color 0.3s;
         }
         
         body.dark-mode nav {
-            background-color: #1a1a1a; /* Dark background for nav in dark mode */
+            background-color: #1a1a1a; 
         }
 
         nav a { 
             flex: 1;
             text-align: center;
-            text-decoration: none; /* Remove underline */
-            color: inherit; /* Use the same color as parent */
-            padding: 0.5em; /* Add padding */
+            text-decoration: none; 
+            color: inherit; 
+            padding: 0.5em;
         }
         
         nav a:hover {
             border-bottom: 0.4em solid var(--color-accent);
         }
 
-        /* Contact Form Styles */
         #contact-form {
             display: flex;
             flex-direction: column;
             margin-top: 1em;
         }
-        
+
         label {
             margin-bottom: 0.5em;
         }
@@ -74,8 +74,8 @@
             margin-bottom: 1em;
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            width: 100%; /* Make input and textarea full width */
-            resize: vertical; /* Allow vertical resizing for textarea */
+            width: 100%; 
+            resize: vertical; 
         }
         
         button {
@@ -88,10 +88,9 @@
         }
         
         button:hover {
-            background-color: #4cae4c; /* Darker green on hover */
+            background-color: #4cae4c;
         }
-
-        /* Dark Mode Button */
+        
         .theme-toggle {
             margin: 1em 0;
             padding: 0.5em;
@@ -103,7 +102,7 @@
         }
 
         .theme-toggle:hover {
-            background-color: #4cae4c; /* Darker green on hover */
+            background-color: #4cae4c;
         }
     </style>
 </head>
@@ -114,7 +113,7 @@
     </header>
 
     <nav id="navbar">
-        <ul></ul> <!-- Add an unordered list to hold the navigation items -->
+        <ul></ul>
     </nav>
 
     <section id="projects">
@@ -138,15 +137,12 @@
     </section>
 
     <script>
-        // Prints message ITS ALIVE
         console.log("IT'S ALIVE");
 
-        // Utility function that selects DOM based on CSS selector.
         function $$(selector, context = document) {
             return Array.from(context.querySelectorAll(selector));
         }
 
-        // Step 2: Automatic current page link
         let pages = [
             { url: 'index.html', title: 'Home' },
             { url: 'projects/index.html', title: 'Projects' },
@@ -155,39 +151,32 @@
             { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
         ];
 
-        // Create the navigation element
-        let nav = document.querySelector('nav');
-        let ul = document.createElement('ul');
-        nav.appendChild(ul);
+        let nav = document.querySelector('nav ul');
 
-        // Create links for the navigation
         for (let p of pages) {
-            let url = p.url;
-            let title = p.title;
-
-            // Create the link element
+            let li = document.createElement('li');
             let a = document.createElement('a');
-            a.href = url;
-            a.textContent = title;
+            a.href = p.url;
+            a.textContent = p.title;
 
             // Highlight the current page
-            a.classList.toggle('current', a.href === location.href);
+            let currentPath = location.pathname.split('/').pop();
+            if (p.url.includes(currentPath)) {
+                a.classList.add('current');
+            }
 
-            // Open external links in a new tab
             if (a.host !== location.host) {
                 a.target = "_blank";
             }
 
-            // Append the link to the <ul>
-            ul.appendChild(a);
+            li.appendChild(a);
+            nav.appendChild(li);
         }
 
-        // Add theme toggle functionality
         const toggleButton = document.getElementById('theme-toggle');
         if (toggleButton) {
             toggleButton.addEventListener('click', function() {
                 document.body.classList.toggle('dark-mode');
-                // Save the user's preference in local storage
                 if (document.body.classList.contains('dark-mode')) {
                     localStorage.setItem('theme', 'dark');
                 } else {
@@ -195,7 +184,6 @@
                 }
             });
 
-            // Load saved color scheme
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');
