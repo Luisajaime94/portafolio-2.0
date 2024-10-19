@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luisa Jaime's Resume</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"> <!-- Google Font -->
-    <script src="script.js" type="module" defer></script>
+    <title>Luisa Jaime: Resume</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../global.js" defer></script>
     <style>
         :root {
             --color-accent: #1e90ff;
             --background-color: #f4f4f9;
             --text-color: #333;
             --link-color: #007bff;
-            --font-family: 'Roboto', sans-serif; /* Use Google Fonts */
-            --border-color: #ddd;
+            --font-family: 'Roboto', sans-serif;
+            --border-color: #d0c3c3;
         }
         body {
             font-family: var(--font-family);
-            max-width: 100ch; /* limits body to 100 characters */
-            margin: max(1em, calc((100% - 100ch) / 2)); /* centers content horizontally */
+            max-width: 100ch;
+            margin: max(1em, calc((100% - 100ch) / 2));
             padding-inline: 1em;
             background-color: var(--background-color);
             color: var(--text-color);
@@ -79,16 +79,6 @@
         .skills h3, .projects h3 {
             margin-bottom: 10px;
         }
-        .toggle-button {
-            padding: 10px;
-            margin: 10px 0;
-            cursor: pointer;
-            background-color: var(--color-accent);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
         nav ul {
             display: flex;
             gap: 20px;
@@ -123,15 +113,20 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="contact-info">
-            <p>4345 Mentone St • San Diego, CA 92107</p>
-            <p>Email: <a href="mailto:luisajaime94@gmail.com">luisajaime94@gmail.com</a></p>
-            <p><a href="https://www.linkedin.com/in/luisa-jaime-garcia/" target="_blank">LinkedIn Profile</a></p>
-        </div>
-        <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    </header>
+      <!-- Color scheme switcher -->
+      <div class="color-scheme">
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select">
+            <option value="auto">Automatic</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+    </div>
 
+    <!-- Navigation Menu -->
+    <nav>
+        <ul></ul> <!-- The navigation links will be dynamically inserted by global.js -->
+    </nav>
     <section class="education">
         <h2>Education</h2>
         <h3>University of California, San Diego</h3>
@@ -220,59 +215,8 @@
         </ul>
     </section>
 
-    <script>
-       // Prints message IT'S ALIVE
-console.log("IT'S ALIVE");
-
-// Utility function that selects DOM based on CSS selector.
-// Simplifies selecting the elements by making querySelectorAll more accessible.
-// Converts NodeList into an array.
-function $$(selector, context = document) {
-    return Array.from(context.querySelectorAll(selector));
-}
-
-// Step 1: Create an array of pages for navigation
-let pages = [
-    { url: 'index.html', title: 'Home' },
-    { url: 'projects/index.html', title: 'Projects' },
-    { url: 'contact/index.html', title: 'Contact' },
-    { url: 'CV/index.html', title: 'Resume' },
-    { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
-];
-
-// Create the navigation element
-let nav = document.createElement('nav');
-let ul = document.createElement('ul');
-nav.appendChild(ul);
-document.body.prepend(nav);
-
-// Create links for the navigation
-for (let p of pages) {
-    let url = p.url;
-    let title = p.title;
-
-    // Create the link element
-    let a = document.createElement('a');
-    a.href = url;
-    a.textContent = title;
-
-    // Highlight the current page
-    // Use location.pathname to match the page URL properly
-    if (location.pathname.endsWith(url)) {
-        a.classList.add('current');
-    }
-
-    // Open external links in a new tab
-    if (url.startsWith('http')) {
-        a.target = '_blank';
-    }
-
-    // Append link to the list
-    let li = document.createElement('li');
-    li.appendChild(a);
-    ul.appendChild(li);
-}
-
-    </script>
+    <footer>
+        <p>&copy; 2024 Luisa Jaime. All rights reserved.</p>
+    </footer>
 </body>
 </html>

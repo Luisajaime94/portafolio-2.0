@@ -8,95 +8,81 @@ function $$(selector, context = document) {
     return Array.from(context.querySelectorAll(selector));
 }
 
-// Step 1: Create an array of pages for navigation
-let pages = [
-    { url: 'index.html', title: 'Home' },
-    { url: 'projects/index.html', title: 'Projects' },
-    { url: 'contact/index.html', title: 'Contact' },
-    { url: 'CV/index.html', title: 'Resume' },
-    { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
-];
+// Array of navLinks
+let navLinks = $$('nav a');
 
-// Create the navigation element
-let nav = document.createElement('nav');
-let ul = document.createElement('ul');
-nav.appendChild(ul);
-document.body.prepend(nav);
-
-// Create links for the navigation
-for (let p of pages) {
-    let url = p.url;
-    let title = p.title;
-
-    // Create the link element
-    let a = document.createElement('a');
-    a.href = url;
-    a.textContent = title;
-
-    // Highlight the current page based on pathname
-    a.classList.toggle('current', a.pathname === location.pathname);
-
-    // Open external links in a new tab
-    if (a.host !== location.host) {
-        a.target = "_blank";
-    }
-
-    // Append the link to the <ul>
-    ul.appendChild(a);
-}
-
-// Step 2: Automatic current page link
-let navLinks = $$("nav a");
+// Finding the link to the current page
 let currentLink = navLinks.find(
     (a) => a.host === location.host && a.pathname === location.pathname
 );
-if (currentLink) {
-    currentLink.classList.add('current');
-}
 
-// Step 3: Adding color scheme switcher functionality
-const colorSchemeLabel = document.createElement('label');
-colorSchemeLabel.className = 'color-scheme';
-colorSchemeLabel.innerHTML = `
-    Theme:
-    <select id="theme-selector">
-        <option value="light dark">Automatic</option>
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-    </select>
-`;
-document.body.insertAdjacentElement('afterbegin', colorSchemeLabel);
+// Adding the current class to the current page link
+currentLink?.classList.add('current');
 
-// Theme selector functionality
-const themeSelector = document.getElementById('theme-selector');
-themeSelector.addEventListener('change', function () {
-    const selectedTheme = this.value;
-    document.documentElement.setAttribute('color-scheme', selectedTheme);
+// Same pages as before
+let pages = [
+    { url: "index.html", title: "Home" },
+    { url: "projects/index.html", title: 'Projects' },
+    { url: 'resume/index.html', title: 'Resume' },
+    { url: 'contacts/index.html', title: 'Contacts' },
+    { url: 'https://github.com/Luisajaime94', title: "Github" }
+];
 
-    if (selectedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        localStorage.setItem('theme', 'dark');
-    } else if (selectedTheme === 'light') {
-        document.body.classList.remove('dark-mode');
-        localStorage.setItem('theme', 'light');
-    } else {
-        // Automatic theme detection logic could go here
-        const hour = new Date().getHours();
-        if (hour >= 18 || hour < 6) {
-            document.body.classList.add('dark-mode');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.body.classList.remove('dark-mode');
-            localStorage.setItem('theme', 'light');
+// Seeing if we are on the home page and storing it in a variable
+const ARE_WE_HOME = document.documentElement.classList.contains('home');
+
+// Creating the navigation bar when DOM content is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    // Get the existing nav element
+    let nav = document.querySelector('nav');
+
+    // Creating the links
+    for (let p of pages) {
+        let a = document.createElement('a');
+        let url = p.url;
+
+        // Adjust the URL if not on the home page
+        if (!ARE_WE_HOME && !url.startsWith('http')) {
+            url = '../' + url;
+        }
+        a.href = url;
+        a.textContent = p.title;
+        nav.append(a);
+
+        // Toggle 'current' class for active link
+        a.classList.toggle(
+            'current',
+            a.host === location.host && a.pathname === location.pathname
+        );
+
+        // Open in a new tab if it's an external link
+        if (a.host !== location.host) {
+            a.target = '_blank';
         }
     }
-});
 
-// Load saved color scheme
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-    themeSelector.value = 'dark';
-} else {
-    themeSelector.value = 'light';
-}
+    // To create each link and add it to the nav and add the theme
+    document.body.insertAdjacentHTML('afterbegin', `
+        <label class="color-scheme">
+            Theme:
+            <select id="theme-switcher">
+                <option value="light">Automatic</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+        </label>
+    `);
+
+    // Contact page form submission handling
+    const form = document.getElementById('contactForm');
+    form?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const data = new FormData(form);
+        let url = form.action + '?';
+        for (let [name, value] of data) {
+            url += `${encodeURIComponent(name)}=${encodeURIComponent(value)}&`;
+        }
+        url = url.slice(0, -1); // Remove the last '&'
+        location.href = url; // Redirect to the constructed URL
+    });
+});

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luisa Jaime: Personal site and portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" type="module" defer></script>
+    <script src="global.js" defer></script>
     <style>
         :root {
             --color-accent: oklch(65% 50% 0);
@@ -60,16 +60,26 @@
     </style>
 </head>
 <body>
-    <div class="color-scheme">
-        <label for="theme-select">Color Scheme:</label>
+      <!-- Color scheme switcher -->
+      <div class="color-scheme">
+        <label for="theme-select">Theme:</label>
         <select id="theme-select">
+            <option value="auto">Automatic</option>
             <option value="light">Light</option>
             <option value="dark">Dark</option>
         </select>
     </div>
+    
+    </div>
 
-    <nav></nav>
+    <!-- Navigation placeholder -->
+    <nav>
+        <ul>
+            <!-- Dynamic menu will be inserted here by JavaScript -->
+        </ul>
+    </nav>
 
+    <!-- Content -->
     <h1>Luisa Jaime</h1>
     <p>My name is Luisa Jaime, and I was born and raised in Guadalajara, Mexico. 
         I decided to pursue a master's in data science because I wanted to transition into a field that moves away from traditional lab work while still being closely related to science. I believe that data science offers a unique opportunity to integrate my undergraduate knowledge with cutting-edge analytical techniques, 
@@ -77,58 +87,5 @@
     </p>
     <img src="images/IMG_3637.JPEG" alt="A photo of Luisa in CDMX" style="width: 300px; height: auto;">
 
-    <script>
-        console.log("IT'S ALIVE");
-
-        function $$(selector, context = document) {
-            return Array.from(context.querySelectorAll(selector));
-        }
-
-        let pages = [
-            { url: 'index.html', title: 'Home' },
-            { url: 'projects/index.html', title: 'Projects' },
-            { url: 'contact/index.html', title: 'Contact' },
-            { url: 'CV/index.html', title: 'Resume' },
-            { url: 'https://github.com/Luisajaime94', title: 'GitHub Profile' }
-        ];
-
-        let nav = document.querySelector('nav');
-        let ul = document.createElement('ul');
-        nav.appendChild(ul);
-
-        for (let p of pages) {
-            let a = document.createElement('a');
-            a.href = p.url;
-            a.textContent = p.title;
-            a.classList.toggle('current', a.href === location.href);
-
-            if (a.host !== location.host) {
-                a.target = "_blank";
-            }
-
-            ul.appendChild(a);
-        }
-
-        const select = document.getElementById('theme-select');
-        select.addEventListener('input', function (event) {
-            const colorScheme = event.target.value;
-            document.documentElement.style.setProperty('color-scheme', colorScheme);
-            localStorage.colorScheme = colorScheme;
-            if (colorScheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-        });
-
-        if ('colorScheme' in localStorage) {
-            const savedScheme = localStorage.colorScheme;
-            document.documentElement.style.setProperty('color-scheme', savedScheme);
-            select.value = savedScheme;
-            if (savedScheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        }
-    </script>
 </body>
 </html>
