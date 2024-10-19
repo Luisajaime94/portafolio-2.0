@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let pages = [
         { url: "index.html", title: "Home" },
         { url: "projects/index.html", title: "Projects" },
-        { url: "cv/index.html", title: "CV" },
+        { url: "CV/index.html", title: "CV" },
         { url: "contact/index.html", title: "Contact" },
         { url: "https://github.com/Luisajaime94", title: "GitHub" }
     ];
@@ -24,11 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
         let li = document.createElement('li');
         let a = document.createElement('a');
 
-        // Check if the current page is in a subdirectory
-        let isSubPage = window.location.pathname.split('/').length > 2;
-        
-        // Adjust URL for subpages
-        let adjustedURL = isSubPage && !p.url.startsWith('http') ? '../' + p.url : p.url;
+        // Adjust URL for subpages if not an external link
+        let currentPath = window.location.pathname;
+        let adjustedURL = p.url;
+
+        // If the current page is in a subdirectory, adjust relative links
+        if (!p.url.startsWith('http')) {
+            let depth = (currentPath.match(/\//g) || []).length; // Count slashes to determine depth
+            if (depth > 1) {
+                adjustedURL = '../'.repeat(depth - 1) + p.url;
+            }
+        }
 
         a.href = adjustedURL;
         a.textContent = p.title;
