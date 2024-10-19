@@ -1,7 +1,7 @@
 // Prints message IT'S ALIVE
 console.log("IT'S ALIVE");
 
-// Create the navigation bar when DOM content is loaded
+// Create the navigation bar and handle dark mode when DOM content is loaded
 document.addEventListener("DOMContentLoaded", () => {
     // Pages array with relative URLs
     let pages = [
@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Get the existing nav element
     let nav = document.querySelector('nav ul');
+    if (!nav) {
+        console.error("Navigation element not found!");
+        return;
+    }
 
     // Dynamically create the navigation links
     pages.forEach((p) => {
@@ -43,34 +47,38 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-       // Theme switcher logic
-       const themeSwitcher = document.getElementById('theme-select');
-       themeSwitcher.addEventListener('change', (event) => {
-           const selectedTheme = event.target.value;
-   
-           if (selectedTheme === 'dark') {
-               document.body.classList.add('dark-mode');
-               localStorage.setItem('theme', 'dark');
-           } else if (selectedTheme === 'light') {
-               document.body.classList.remove('dark-mode');
-               localStorage.setItem('theme', 'light');
-           } else {
-               localStorage.removeItem('theme');
-               if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                   document.body.classList.add('dark-mode');
-               } else {
-                   document.body.classList.remove('dark-mode');
-               }
-           }
-       });
-   
-       // Apply saved or system-preferred theme
-       const savedTheme = localStorage.getItem('theme');
-       if (savedTheme) {
-           document.body.classList.toggle('dark-mode', savedTheme === 'dark');
-           themeSwitcher.value = savedTheme;
-       } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-           document.body.classList.add('dark-mode');
-           themeSwitcher.value = 'auto';
-       }
-   });
+    // Theme switcher logic
+    const themeSwitcher = document.getElementById('theme-select');
+    if (themeSwitcher) {
+        themeSwitcher.addEventListener('change', (event) => {
+            const selectedTheme = event.target.value;
+
+            if (selectedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (selectedTheme === 'light') {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Apply saved or system-preferred theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+            themeSwitcher.value = savedTheme;
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark-mode');
+            themeSwitcher.value = 'auto';
+        }
+    } else {
+        console.error("Theme switcher element not found!");
+    }
+});
