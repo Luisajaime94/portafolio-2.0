@@ -3,13 +3,13 @@ console.log("IT'S ALIVE");
 
 // Create the navigation bar and handle dark mode when DOM content is loaded
 document.addEventListener("DOMContentLoaded", () => {
-    // Pages array with relative URLs
+    // Pages array with relative URLs (hardcoded paths for testing)
     let pages = [
-        { url: "index.html", title: "Home" },
-        { url: "projects/index.html", title: "Projects" },
-        { url: "CV/index.html", title: "CV" },
-        { url: "contact/index.html", title: "Contact" },
-        { url: "https://github.com/Luisajaime94", title: "GitHub" }
+        { url: "/projects/index.html", title: "Projects" }, // Hardcoded full path for projects
+        { url: "/CV/index.html", title: "CV" },             // Hardcoded full path for CV
+        { url: "/contact/index.html", title: "Contact" },   // Hardcoded full path for Contact
+        { url: "/", title: "Home" },                        // Home should point to the root
+        { url: "https://github.com/Luisajaime94", title: "GitHub" } // External link to GitHub
     ];
 
     // Get the existing nav element
@@ -24,24 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let li = document.createElement('li');
         let a = document.createElement('a');
 
-        // Adjust URL for subpages if not an external link
-        let currentPath = window.location.pathname;
-        let adjustedURL = p.url;
-
-        // If the current page is in a subdirectory, adjust relative links
-        if (!p.url.startsWith('http')) {
-            let depth = (currentPath.match(/\//g) || []).length; // Count slashes to determine depth
-            if (depth > 1) {
-                adjustedURL = '../'.repeat(depth - 1) + p.url;
-            }
-        }
-
-        a.href = adjustedURL;
+        // Set the URL and text content for the navigation link
+        a.href = p.url;
         a.textContent = p.title;
         li.appendChild(a);
         nav.appendChild(li);
 
-        // Add 'current' class for the active page
+        // Add 'current' class for the active page (current page highlighting)
         a.classList.toggle(
             'current',
             a.host === location.host && a.pathname === location.pathname
